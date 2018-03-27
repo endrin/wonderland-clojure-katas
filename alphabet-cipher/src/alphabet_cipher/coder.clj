@@ -1,12 +1,13 @@
 (ns alphabet-cipher.coder)
 
-(defn char-pos [^Character chr]
-  "Gives character offset relative to 'a'"
+(defn char-pos
+  "Given a character `chr`, returns its offset relative to \\a"
+  [^Character chr]
   (- (int chr) (int \a)))
 
 (defn ^Character code-table-cell
-  [^Character row-char ^Character col-char]
   "Finds a letter in a cell given a pair of row and column chars"
+  [^Character row-char ^Character col-char]
   (as-> [row-char col-char] $
     (map char-pos $)
     (apply + $)
@@ -15,20 +16,24 @@
         (+ (int \a))
         char)))
 
-(defn rotating-keyword [kw]
+(defn rotating-keyword
   "Rotates chars of the keyword infinitely"
-  (cycle (char-array kw)))
+  [kw]
+  (cycle (seq kw)))
 
-(defn encode [keyword message]
+(defn encode
   "encodeme"
+  [keyword message]
   (->> keyword
        rotating-keyword
        (map code-table-cell message)
        (apply str)))
 
-(defn decode [keyword message]
-  "decodeme")
+(defn decode
+  "decodeme"
+  [keyword message])
 
-(defn decipher [cipher message]
-  "decypherme")
+(defn decipher
+  "decypherme"
+  [cipher message])
 
